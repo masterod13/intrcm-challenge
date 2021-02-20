@@ -1,0 +1,12 @@
+# for globally ignored files instead of adding to each project for each IDE, run:
+#     git config --global core.excludesfile ~/.gitignore && echo ".idea" >> ~/.gitignore
+###> symfony/framework-bundle ###
+.env
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+/bin/*
+!bin/console
+phpunit.xml
+.idea/

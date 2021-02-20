@@ -1,0 +1,13 @@
+version: '3'
+services:
+  web:
+    container_name: php-skeleton
+    build:
+      context: .
+      args:
+        - environment="linux"
+    image: php-skeleton
+    ports:
+      - '8090:80'
+    volumes:
+      - ./:/app
