@@ -1,8 +1,8 @@
 <?php
 
-namespace Model\Parser;
+namespace Model\Reader;
 
-interface ParserInterface
+interface ReaderInterface
 {
-    public function parse();
+    public function read();
 }

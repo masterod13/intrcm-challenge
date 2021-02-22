@@ -1,7 +1,12 @@
 {
   "autoload": {
     "psr-4": {
-      "Helper\\": "src/Helper"
+      "Helper\\": "src/Helper",
+      "Model\\": "src/Model"
     }
+  },
+  "require": {
+    "ext-curl": "*",
+    "ext-json": "*"
   }
 }

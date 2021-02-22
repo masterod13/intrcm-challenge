@@ -1,8 +1,10 @@
 <?php
 
 
-namespace Model\Validation;
+namespace Model\Validation\Rule;
 
+
+use Model\Validation\Rule\Condition\RuleCondition;
 
 abstract class ValidationRule
 {
@@ -10,34 +12,84 @@ abstract class ValidationRule
     /**
      * @var string $name
      */
-    private $name;
+    protected $name;
 
     /**
-     * @var string $type
+     * @var RuleCondition[] $conditions
      */
-    private $type;
+    protected $conditions = [];
 
     /**
-     * @var array $values
+     * @var array
      */
-    private $values;
+    protected $errors = [];
 
-    abstract public function getRuleType();
 
-        /**
-     * Required constructor.
+    abstract public function nameExistsInInput(array $input);
+
+    /**
+     * Keep it simple for now. In future work might need to
+     * add an $input parameter in cases such as conditional required fields
+     * @return bool
+     */
+    abstract public function isRequired(): bool;
+
+    /**
+     * Required constructor. Name of the field to be validated
      * @param string $name
-     * @param string $type
-     * @param array|string|null $values
      */
-    public function __construct(string $name, string $type, $values = null)
+    public function __construct(string $name)
     {
         $this->name = $name;
-        $this->type = $type;
-        $this->values = $values;
     }
 
-    public function addCondition()
+    /**
+     * @param RuleCondition $condition
+     * @return ValidationRule
+     */
+    public function addCondition(RuleCondition $condition): ValidationRule
+    {
+        $this->conditions[] = $condition;
 
+        return $this;
+    }
 
+    /**
+     * @param array $input
+     * @return false
+     */
+    public function isValidRule(array $input): bool
+    {
+        $this->errors = [];
+        if (!$this->nameExistsInInput($input)) {
+            return !$this->isRequired();
+        }
+        $success = true;
+        foreach ($this->conditions as $condition) {
+            if (!$condition->isSatisfied($input[$this->name])) {
+                $this->addError($condition->getError());
+                $success = false;
+            }
+        }
+
+        return $success;
+    }
+
+    /**
+     * @param string $error
+     */
+    protected function addError(string $error): void
+    {
+        if (!empty($error)) {
+            $this->errors[] = $error;
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
 }

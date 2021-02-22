@@ -1,18 +1,31 @@
 <?php
 
 
-namespace Model\Parser;
+namespace Model;
 
+use Model\Reader\ReaderInterface;
 
-class HttpParser implements ParserInterface
+class Parser
 {
-    public function __construct(Simpl)
-    {
 
-    }
-    public function parse()
+    /**
+     * @param ReaderInterface $reader
+     * @return array $customers
+     */
+    public function parse(ReaderInterface $reader): array
     {
+        $customers = [];
+        $readerStr = $reader->read();
+        $customerRows = explode("\n", $readerStr);
 
+        foreach ($customerRows as $customerRow) {
+            $customer = json_decode($customerRow, true);
+            if(!empty($customer)) {
+                $customers[] = $customer;
+            }
+        }
+
+        return $customers;
     }
 
 }

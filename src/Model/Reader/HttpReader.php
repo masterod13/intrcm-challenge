@@ -4,15 +4,33 @@
 namespace Model\Reader;
 
 
-class HttpReader implements ParserInterface
+use Helper\SimpleHttpClient;
+
+class HttpReader implements ReaderInterface
 {
-    public function __construct(Simpl)
-    {
+    /**
+     * @var SimpleHttpClient
+     */
+    private $httpClient;
 
+    /**
+     * @var string
+     */
+    private $url;
+
+    public function __construct(SimpleHttpClient $httpClient, string $url)
+    {
+        $this->httpClient = $httpClient;
+        $this->url = $url;
     }
-    public function parse()
-    {
 
+    /**
+     * @return bool|string
+     * @throws \Exception
+     */
+    public function read()
+    {
+        return $this->httpClient->get($this->url);
     }
 
 }
