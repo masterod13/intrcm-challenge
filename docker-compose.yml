@@ -1,12 +1,12 @@
 version: '3'
 services:
   web:
-    container_name: php-skeleton
+    container_name: php-intercom-challenge
     build:
       context: .
       args:
         - environment="linux"
-    image: php-skeleton
+    image: php-intercom-challenge
     ports:
       - '8090:80'
     volumes:

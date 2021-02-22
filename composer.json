@@ -9,5 +9,9 @@
     "ext-curl": "*",
     "ext-json": "*",
     "monolog/monolog": "*"
+  },
+
+  "require-dev": {
+    "phpunit/phpunit": "^9"
   }
 }
