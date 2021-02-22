@@ -4,6 +4,7 @@
 namespace Model;
 
 use Model\Reader\ReaderInterface;
+use Model\Reader\ReadException;
 
 class Parser
 {
@@ -11,7 +12,7 @@ class Parser
     /**
      * @param ReaderInterface $reader
      * @return array $customers
-     * @throws Reader\ReadException
+     * @throws ReadException
      */
     public function parse(ReaderInterface $reader): array
     {

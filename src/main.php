@@ -1,6 +1,7 @@
 <?php
 
 use Helper\SimpleHttpClient;
+use Model\Constants;
 use Model\Coordinate;
 use Model\CustomerInviter;
 use Model\Parser;
@@ -9,12 +10,9 @@ use Model\Validation\CustomerValidator;
 use Model\Validation\UserArrayBuilder;
 use Model\Writer\ScreenJsonWriter;
 use Monolog\Handler\ErrorLogHandler;
-use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 
 const CUSTOMERS_URLS = 'https://s3.amazonaws.com/intercom-take-home-test/customers.txt';
-const DUBLIN_OFFICE_LATITUDE = 53.339428;
-const DUBLIN_OFFICE_LONGITUDE = -6.257664;
 const ERROR_MESSAGE = 'There was an error';
 
 $log = new Logger('stderrLogger');
@@ -30,7 +28,7 @@ try {
     if (!empty($customerBuilder->getErrors())) {
         $output = $customerBuilder->getErrors();
     } else {
-        $dublinOfficeCoordinates = new Coordinate(DUBLIN_OFFICE_LATITUDE, DUBLIN_OFFICE_LONGITUDE);
+        $dublinOfficeCoordinates = new Coordinate(Constants::DUBLIN_OFFICE_LATITUDE, Constants::DUBLIN_OFFICE_LONGITUDE);
         $output = (new CustomerInviter())->filterCustomers($customers, $dublinOfficeCoordinates);
     }
 } catch (\Exception $e) {

@@ -1,25 +1,15 @@
 <?php
 
 
-namespace Model\Reader;
+namespace Tests\Model\Reader;
 
-
-use Helper\HttpErrorException;
 use Helper\SimpleHttpClient;
+use Model\Reader\HttpReader;
+use Model\Reader\ReadException;
 use PHPUnit\Framework\TestCase;
 
-
-/**
- * Class HttpReader
- * @package Model\Reader
- * This implementation reads from a given url
- */
 class HttpReaderTest extends TestCase
 {
-    /**
-     * @return bool|string
-     * @throws ReadException
-     */
     public function testReadExceptionBecauseOfWrongUrl()
     {
         $this->expectException(ReadException::class);
