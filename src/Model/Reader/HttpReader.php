@@ -4,8 +4,14 @@
 namespace Model\Reader;
 
 
+use Helper\HttpErrorException;
 use Helper\SimpleHttpClient;
 
+/**
+ * Class HttpReader
+ * @package Model\Reader
+ * This implementation reads from a given url
+ */
 class HttpReader implements ReaderInterface
 {
     /**
@@ -26,11 +32,15 @@ class HttpReader implements ReaderInterface
 
     /**
      * @return bool|string
-     * @throws \Exception
+     * @throws ReadException
      */
     public function read()
     {
-        return $this->httpClient->get($this->url);
+        try {
+            return $this->httpClient->get($this->url);
+        } catch (HttpErrorException $e) {
+            throw new ReadException('There is an error reading specified url', 0, $e);
+        }
     }
 
 }

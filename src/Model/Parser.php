@@ -11,6 +11,7 @@ class Parser
     /**
      * @param ReaderInterface $reader
      * @return array $customers
+     * @throws Reader\ReadException
      */
     public function parse(ReaderInterface $reader): array
     {

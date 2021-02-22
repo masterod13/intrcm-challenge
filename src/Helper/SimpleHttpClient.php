@@ -15,7 +15,7 @@ class SimpleHttpClient
     /**
      * @param string $url
      * @return bool|string
-     * @throws \Exception
+     * @throws HttpErrorException
      */
     public function get(string $url)
     {
@@ -32,7 +32,7 @@ class SimpleHttpClient
      * @param string $url
      * @param string $body
      * @return bool|string
-     * @throws \Exception
+     * @throws HttpErrorException
      */
     public function post(string $url, string $body)
     {
@@ -55,7 +55,7 @@ class SimpleHttpClient
      * @param string $url
      * @param array $curlOptions
      * @return string
-     * @throws \Exception
+     * @throws HttpErrorException
      */
     private function call(string $url, array $curlOptions)
     {
@@ -63,9 +63,7 @@ class SimpleHttpClient
         $response = curl_exec($this->con);
 
         if (curl_errno($this->con)) {
-            throw new \Exception("Curl error", [
-                "error_msg" => curl_errno($this->con)
-            ]);
+            throw new HttpErrorException("Curl error:" . curl_errno($this->con));
         }
 
         return $response;

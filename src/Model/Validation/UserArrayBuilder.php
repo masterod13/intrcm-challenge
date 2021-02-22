@@ -45,8 +45,8 @@ class UserArrayBuilder
             if (!empty($validator->getErrors())) {
                 $this->addErrors($validator->getErrors());
             } else {
-                $this->users[] = new User($toBeValidated['user_id'], $toBeValidated['name'],
-                    new Coordinate($toBeValidated['latitude'], $toBeValidated['longitude']));
+                $coordinates = new Coordinate($toBeValidated['latitude'], $toBeValidated['longitude']);
+                $this->users[] = new User($toBeValidated['user_id'], $toBeValidated['name'], $coordinates);
             }
         }
 
