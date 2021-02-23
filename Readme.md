@@ -1,4 +1,4 @@
-# PHP Skeleton
+# PHP - take home test
 
 This is implemented in PHP 7.3 using a Docker container to run the code and Composer to install dependencies.
 ## Getting Started
